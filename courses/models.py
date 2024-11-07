@@ -29,3 +29,10 @@ class Lesson(models.Model):
         null=True,
         related_name="course",
     )
+
+    def __str__(self):
+        return f'{self.title}'
+
+    class Meta:
+        verbose_name = 'Урок'
+        verbose_name_plural = 'Уроки'

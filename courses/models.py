@@ -22,12 +22,12 @@ class Lesson(models.Model):
                                 help_text="Загрузите превью")
     course = models.ForeignKey(
         Course,
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         verbose_name="Курс к которому относится урок",
         help_text="Выберете курс, к которому относится урок",
         blank=True,
         null=True,
-        related_name="course",
+        related_name='lessons'
     )
 
     def __str__(self):

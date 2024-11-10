@@ -29,7 +29,9 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'users',
-    'courses'
+    'courses',
+    'django_filters',
+
 ]
 
 MIDDLEWARE = [
@@ -61,6 +63,10 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
 
 
 # Database
@@ -120,3 +126,5 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.User'
+
+

@@ -4,7 +4,12 @@ from rest_framework.permissions import AllowAny
 from users.apps import UsersConfig
 from rest_framework.routers import DefaultRouter
 
-from users.views import UserCreateAPIView, PaymentViewSet, UserRetrieveAPIView, UserUpdateAPIView, UserDestroyAPIView
+from users.views import (
+    UserCreateAPIView,
+    UserRetrieveAPIView,
+    UserUpdateAPIView,
+    UserDestroyAPIView,
+)
 
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -15,17 +20,21 @@ from rest_framework_simplejwt.views import (
 app_name = UsersConfig.name
 
 router = DefaultRouter()
-router.register(r'payment', viewset=PaymentViewSet, basename='payment')
+
 
 urlpatterns = [
-    path('register/', UserCreateAPIView.as_view(), name='register'),
-    path('<int:pk>/', UserRetrieveAPIView.as_view(), name='user_get'),
-    path('update/<int:pk>/', UserUpdateAPIView.as_view(), name='user_update'),
-    path('delete/<int:pk>/', UserDestroyAPIView.as_view(), name='user_delete'),
-    path('login/', TokenObtainPairView.as_view(permission_classes=(AllowAny,)), name='login'),
-    path('token/refresh/', TokenRefreshView.as_view(permission_classes=(AllowAny,)), name='token_refresh'),
-
+    path("register/", UserCreateAPIView.as_view(), name="register"),
+    path("<int:pk>/", UserRetrieveAPIView.as_view(), name="user_get"),
+    path("update/<int:pk>/", UserUpdateAPIView.as_view(), name="user_update"),
+    path("delete/<int:pk>/", UserDestroyAPIView.as_view(), name="user_delete"),
+    path(
+        "login/",
+        TokenObtainPairView.as_view(permission_classes=(AllowAny,)),
+        name="login",
+    ),
+    path(
+        "token/refresh/",
+        TokenRefreshView.as_view(permission_classes=(AllowAny,)),
+        name="token_refresh",
+    ),
 ] + router.urls
-
-
-

@@ -1,10 +1,15 @@
-from django.shortcuts import render
-from rest_framework import viewsets, filters
-from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
+from rest_framework.generics import (
+    CreateAPIView,
+    ListAPIView,
+    RetrieveAPIView,
+    UpdateAPIView,
+    DestroyAPIView,
+)
 from rest_framework.permissions import AllowAny
 
-from users.models import User, Payment
-from users.serializers import UserSerializer, PaymentSerializer
+
+from users.models import User
+from users.serializers import UserSerializer
 
 
 class UserCreateAPIView(CreateAPIView):
@@ -30,12 +35,3 @@ class UserUpdateAPIView(UpdateAPIView):
 
 class UserDestroyAPIView(DestroyAPIView):
     queryset = User.objects.all()
-
-
-class PaymentViewSet(viewsets.ModelViewSet):
-    serializer_class = PaymentSerializer
-    queryset = Payment.objects.all()
-    filterset_fields = ('payed_course', 'type_of_pay')
-    filter_backends = [filters.OrderingFilter]
-    ordering_fields = ('pay_date',)
-

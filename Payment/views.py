@@ -11,3 +11,6 @@ class PaymentViewSet(viewsets.ModelViewSet):
     filterset_fields = ("payed_course", "type_of_pay")
     filter_backends = [filters.OrderingFilter]
     ordering_fields = ("pay_date",)
+
+
+

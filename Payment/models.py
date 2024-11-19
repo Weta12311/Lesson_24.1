@@ -33,3 +33,6 @@ class Payment(models.Model):
     type_of_pay = models.CharField(
         max_length=5, choices=TypeOfPay.choices, verbose_name="способ оплаты"
     )
+
+
+

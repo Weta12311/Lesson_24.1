@@ -33,13 +33,13 @@ class LessonTestCase(APITestCase):
         self.headers = {'HTTP_AUTHORIZATION': f'Bearer {self.access_token}'}
 
         self.course = Course.objects.create(
-            name="test_course",
+            title="test_course",
             owner=self.user
         )
 
         # Создаем тестовый урок
         self.lesson = Lesson.objects.create(
-            name="Test Lesson",
+            title="Test Lesson",
             description="This is a test lesson",
             course=self.course,
             owner=self.user
@@ -62,7 +62,7 @@ class LessonTestCase(APITestCase):
         print(response.json())
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(response.json()['name'], data['name'])
+        self.assertEqual(response.json()['title'], data['title'])
 
     def test_retrieve_lesson(self):
         """
@@ -73,7 +73,7 @@ class LessonTestCase(APITestCase):
         response = self.client.get(retrieve_url)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['name'], self.lesson.name)
+        self.assertEqual(response.data['title'], self.lesson.title)
 
     def test_update_lesson(self):
         """
@@ -82,14 +82,14 @@ class LessonTestCase(APITestCase):
         update_url = reverse('courses:lesson_update',
                              args=[self.lesson.id])
         updated_data = {
-            "name": "Updated Lesson",
+            "title": "Updated Lesson",
             "description": "This is an updated lesson",
         }
         response = self.client.patch(update_url, updated_data, format='json')
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.lesson.refresh_from_db()
-        self.assertEqual(self.lesson.name, updated_data['name'])
+        self.assertEqual(self.lesson.title, updated_data['title'])
         self.assertEqual(self.lesson.description, updated_data['description'])
 
     def test_delete_lesson(self):
@@ -110,7 +110,7 @@ class LessonTestCase(APITestCase):
         list_url = reverse('courses:lesson_list')
         response = self.client.get(list_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['results'][0]['name'], self.lesson.name)
+        self.assertEqual(response.data['results'][0]['title'], self.lesson.title)
 
 
 class CourseTestCase(APITestCase):
@@ -141,14 +141,13 @@ class CourseTestCase(APITestCase):
 
         # Тестовый курс
         self.course = Course.objects.create(
-            name="test_course",
+            title="test_course",
             owner=self.user,
-            is_public=False
         )
 
         # Создаем тестовый урок
         self.lesson = Lesson.objects.create(
-            name="Test Lesson",
+            title="Test Lesson",
             description="This is a test lesson",
             course=self.course,
             owner=self.user
@@ -167,7 +166,7 @@ class CourseTestCase(APITestCase):
         course_url = reverse('courses:courses-list')
         response = self.client.get(course_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['results'][0]['name'], self.course.name)
+        self.assertEqual(response.data['results'][0]['title'], self.course.title)
 
 
 class SubscriptionTestCase(APITestCase):
@@ -198,7 +197,7 @@ class SubscriptionTestCase(APITestCase):
 
         # Тестовый курс
         self.course = Course.objects.create(
-            name="test_course",
+            title="test_course",
             owner=self.user,
         )
 

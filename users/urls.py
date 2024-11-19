@@ -37,6 +37,4 @@ urlpatterns = [
         TokenRefreshView.as_view(permission_classes=(AllowAny,)),
         name="token_refresh",
     ),
-    path('courses/<int:pk>/subscription/', SubscriptionAPIView.as_view(),
-         name='subscription'),
 ] + router.urls

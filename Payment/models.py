@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-from courses.models import Course
+from courses.models import Course, NULLABLE
 from users.models import User
 
 
@@ -33,6 +33,7 @@ class Payment(models.Model):
     type_of_pay = models.CharField(
         max_length=5, choices=TypeOfPay.choices, verbose_name="способ оплаты"
     )
-
-
-
+    payment_url = models.URLField(max_length=400, **NULLABLE,
+                                  verbose_name='ссылка на оплату')
+    payment_id = models.CharField(max_length=100, **NULLABLE,
+                                  verbose_name='идентификатор платежа')

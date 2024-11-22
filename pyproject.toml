@@ -16,6 +16,7 @@ django-filter = "^24.3"
 djangorestframework-simplejwt = "^5.3.1"
 black = "^24.10.0"
 ipython = "^8.29.0"
+drf-yasg = "^1.21.8"
 
 
 [build-system]

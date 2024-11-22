@@ -7,4 +7,4 @@ app_name = PaymentConfig.name
 
 router = DefaultRouter()
 router.register(r"payment", viewset=PaymentViewSet, basename="payment")
-router.register(r"subscription", viewset=SubscriptionViewSet, basename="subscription")
+

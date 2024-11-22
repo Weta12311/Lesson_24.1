@@ -2,7 +2,7 @@ from django.db import models
 
 from users.models import User
 
-NULLABLE = {'blank': True, 'null': True}
+NULLABLE = {"blank": True, "null": True}
 
 
 class Course(models.Model):
@@ -46,7 +46,7 @@ class Lesson(models.Model):
         null=True,
         related_name="lessons",
     )
-    link = models.URLField(max_length=200, blank=True, null=True, verbose_name='link')
+    link = models.URLField(max_length=200, blank=True, null=True, verbose_name="link")
 
     owner = models.ForeignKey(
         User, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Владелец"
@@ -65,18 +65,27 @@ class Subscription(models.Model):
     Модель подписки на курс
     """
 
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, **NULLABLE,
-                              verbose_name='владелец',
-                              related_name='subscription')
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, **NULLABLE,
-                               verbose_name='курс',
-                               related_name='subscriptions')
-    status = models.BooleanField(default=False, verbose_name='статус подписки',
-                                 **NULLABLE)
+    owner = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        **NULLABLE,
+        verbose_name="владелец",
+        related_name="subscription",
+    )
+    course = models.ForeignKey(
+        Course,
+        on_delete=models.CASCADE,
+        **NULLABLE,
+        verbose_name="курс",
+        related_name="subscriptions",
+    )
+    status = models.BooleanField(
+        default=False, verbose_name="статус подписки", **NULLABLE
+    )
 
     class Meta:
-        verbose_name = 'Подписка'
-        verbose_name_plural = 'Подписки'
+        verbose_name = "Подписка"
+        verbose_name_plural = "Подписки"
 
     def __str__(self):
-        return f'{self.owner}: {self.course}'
+        return f"{self.owner}: {self.course}"

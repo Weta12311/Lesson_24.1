@@ -47,18 +47,17 @@ class SubscriptionAPIView(APIView):
 
     def post(self, *args, **kwargs):
 
-        course = Course.objects.get(pk=self.kwargs['pk'])
+        course = Course.objects.get(pk=self.kwargs["pk"])
         user = self.request.user
-        subscription = Subscription.objects.filter(course=course,
-                                                   owner=user).first()
+        subscription = Subscription.objects.filter(course=course, owner=user).first()
 
         if subscription.status:
             subscription.status = False
             subscription.save()
-            message = 'Вы отписались от курса.'
+            message = "Вы отписались от курса."
         else:
             subscription.status = True
             subscription.save()
-            message = 'Вы подписались на курс.'
+            message = "Вы подписались на курс."
 
         return Response({"message": message})

@@ -26,8 +26,7 @@ class CourseSerializer(serializers.ModelSerializer):
 
     def get_subscription(self, instance):
         subscription = Subscription.objects.filter(
-            course=instance,
-            owner=self.context.get('request').user
+            course=instance, owner=self.context.get("request").user
         ).all()
         if subscription:
             return True
@@ -49,4 +48,4 @@ class CourseDetailSerializer(serializers.ModelSerializer):
 class SubscriptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subscription
-        fields = ['id', 'owner', 'course', 'status']
+        fields = ["id", "owner", "course", "status"]

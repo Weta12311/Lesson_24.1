@@ -8,7 +8,8 @@ from users.views import (
     UserCreateAPIView,
     UserRetrieveAPIView,
     UserUpdateAPIView,
-    UserDestroyAPIView, SubscriptionAPIView,
+    UserDestroyAPIView,
+    SubscriptionAPIView,
 )
 
 from rest_framework_simplejwt.views import (

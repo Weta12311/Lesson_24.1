@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "drf_yasg",
     "Payment",
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [

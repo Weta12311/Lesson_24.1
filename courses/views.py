@@ -8,7 +8,10 @@ from courses.serializers import (
     LessonSerializer,
     CourseDetailSerializer,
 )
+from courses.tasks import send_email_for_update_course
+
 from users.permissions import IsModer, IsOwner
+
 
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -34,6 +37,16 @@ class CourseViewSet(viewsets.ModelViewSet):
         course = serializer.save()
         course.owner = self.request.user
         course.save()
+
+    def perform_update(self, serializer):
+        """
+        Отправить сообщение об изменении курса всем подписанным абонентам
+        :param serializer:
+        :return:
+        """
+        course = serializer.save()
+        course_id = course.id
+        send_email_for_update_course.delay(course_id)
 
 
 class LessonCreateAPIView(generics.CreateAPIView):
